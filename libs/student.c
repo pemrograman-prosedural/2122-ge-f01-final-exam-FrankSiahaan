@@ -39,12 +39,23 @@ void print_student_detail(struct student_t *_student, int jumlah){
     {
         if (_student[i].dorm == NULL)
         {
+            if (_student[i].assigned != 0)
+        {
             if (_student[i].gender == 0)
         {
             printf("%s|%s|%s|male|left\n", _student[i].id, _student[i].name, _student[i].year);
         }else {
             printf("%s|%s|%s|female|left\n", _student[i].id, _student[i].name, _student[i].year);
         }
+        } else {
+            if (_student[i].gender == 0)
+        {
+            printf("%s|%s|%s|male|unassigned\n", _student[i].id, _student[i].name, _student[i].year);
+        }else {
+            printf("%s|%s|%s|female|unassigned\n", _student[i].id, _student[i].name, _student[i].year);
+        }
+        }
+            
         }else {
             if (_student[i].gender == 0)
         {
@@ -63,6 +74,7 @@ void assign_student(struct student_t *_student, struct dorm_t *_dorm, char *id, 
         {
             _student->dorm = _dorm;
             _dorm->residents_num++;
+            _student->assigned = 1;
         } else {
             _student->dorm = NULL;
         }
@@ -82,7 +94,9 @@ void student_leave(struct student_t *_student, struct dorm_t *_dorm, int jumlah_
             idx_std = i;
         }   
     }
-
+    
+    if (idx_std != -1 && _student[idx_std].dorm != NULL)
+    {
     for (int j = 0; j < jumlah_dorm; j++)
     {
         if (strcmp(_student[idx_std].dorm->name, _dorm[j].name) == 0)
@@ -90,6 +104,8 @@ void student_leave(struct student_t *_student, struct dorm_t *_dorm, int jumlah_
             idx_drm = j;
         }
     }
+    }
+    
     
     if (idx_drm != -1 && idx_std != -1)
     {
