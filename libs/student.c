@@ -41,9 +41,9 @@ void print_student_detail(struct student_t *_student, int jumlah){
         {
             if (_student[i].gender == 0)
         {
-            printf("%s|%s|%s|male|unassigned\n", _student[i].id, _student[i].name, _student[i].year);
+            printf("%s|%s|%s|male|left\n", _student[i].id, _student[i].name, _student[i].year);
         }else {
-            printf("%s|%s|%s|female|unassigned\n", _student[i].id, _student[i].name, _student[i].year);
+            printf("%s|%s|%s|female|left\n", _student[i].id, _student[i].name, _student[i].year);
         }
         }else {
             if (_student[i].gender == 0)
@@ -94,7 +94,7 @@ void student_leave(struct student_t *_student, struct dorm_t *_dorm, int jumlah_
     if (idx_drm != -1 && idx_std != -1)
     {
         _dorm[idx_drm].residents_num--;
-        strcpy(_student[idx_std].dorm->name, "left");
+        _student[idx_std].dorm = NULL;
     }
     
     
